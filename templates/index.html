@@ -56,20 +56,24 @@ body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-he
 .pill-nonveg.active { background:#ef4444; border-color:#ef4444; }
 .pill-vegan.active { background:#10b981; border-color:#10b981; }
 
-.card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.card-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:16px;
+}
 
 .food-card {
-  background:#fff; border-radius:14px; padding:16px; border-left:4px solid #22c55e;
-  box-shadow:0 1px 4px rgba(0,0,0,.06); transition:.2s;
+  background:#fff; border-radius:16px; padding:20px; border-left:5px solid #22c55e;
+  box-shadow:0 2px 8px rgba(0,0,0,.06); transition:.2s;
 }
-.food-card:hover { box-shadow:0 4px 12px rgba(0,0,0,.1); transform:translateY(-1px); }
+.food-card:hover { box-shadow:0 6px 20px rgba(0,0,0,.1); transform:translateY(-2px); }
 .food-card.unsafe { border-left-color:#ef4444; }
 .food-card.moderation { border-left-color:#f59e0b; }
 
-.food-name { font-size:16px; font-weight:600; margin-bottom:4px; }
-.food-meta { font-size:12px; color:#6b7280; margin-bottom:8px; }
+.food-name { font-size:17px; font-weight:600; margin-bottom:6px; }
+.food-meta { font-size:12px; color:#6b7280; margin-bottom:10px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .food-badge {
-  display:inline-block; padding:2px 8px; border-radius:8px; font-size:11px; font-weight:600;
+  display:inline-block; padding:3px 10px; border-radius:8px; font-size:11px; font-weight:600;
 }
 .badge-safe { background:#dcfce7; color:#166534; }
 .badge-unsafe { background:#fee2e2; color:#991b1b; }
@@ -79,23 +83,25 @@ body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-he
 .badge-egg { background:#fef3c7; color:#92400e; }
 .badge-vegan { background:#d1fae5; color:#065f46; }
 
-.food-reason { font-size:12px; color:#dc2626; margin-top:6px; font-style:italic; }
+.food-reason { font-size:12px; color:#dc2626; margin-top:8px; font-style:italic; padding:6px 10px; background:#fff5f5; border-radius:8px; }
 .nutrients-row {
-  display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-top:10px;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:14px;
 }
-.nutrient-item { text-align:center; padding:4px; background:#f8fafc; border-radius:6px; }
-.nutrient-val { font-size:14px; font-weight:600; color:#ec4899; }
-.nutrient-label { font-size:10px; color:#9ca3af; }
+.nutrient-item {
+  text-align:center; padding:8px 4px; background:#f8fafc; border-radius:8px;
+}
+.nutrient-val { font-size:15px; font-weight:600; color:#ec4899; }
+.nutrient-label { font-size:10px; color:#9ca3af; margin-top:2px; }
 
 /* Meal cards */
 .meal-group-title {
-  font-size:16px; font-weight:600; margin:20px 0 10px; padding:8px 14px;
+  font-size:16px; font-weight:600; margin:20px 0 10px; padding:10px 16px;
   background:#fff; border-radius:10px; border-left:4px solid #ec4899;
 }
 .meal-group-title:first-child { margin-top:0; }
 .meal-card {
-  background:#fff; border-radius:12px; padding:14px 16px;
-  box-shadow:0 1px 3px rgba(0,0,0,.05); margin-bottom:8px;
+  background:#fff; border-radius:12px; padding:16px 18px;
+  box-shadow:0 1px 3px rgba(0,0,0,.05); margin-bottom:10px;
 }
 .meal-name { font-size:15px; font-weight:600; }
 .meal-desc { font-size:13px; color:#6b7280; margin:4px 0; }
@@ -159,6 +165,45 @@ body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-he
 .fill-folic { background:linear-gradient(90deg,#10b981,#34d399); }
 .fill-protein { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
 
+.suggest-section { margin-top:16px; }
+.suggest-card {
+  background:#fff; border-radius:14px; padding:16px; margin-bottom:12px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06); border-left:4px solid #ef4444;
+}
+.suggest-header {
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;
+  flex-wrap:wrap; gap:6px;
+}
+.suggest-nutrient { font-size:15px; font-weight:600; }
+.suggest-deficit {
+  font-size:12px; background:#fee2e2; color:#991b1b; padding:2px 10px;
+  border-radius:8px; font-weight:600;
+}
+.suggest-label { font-size:13px; color:#6b7280; margin-bottom:8px; }
+.suggest-foods { display:flex; gap:8px; flex-wrap:wrap; }
+.suggest-food {
+  display:flex; align-items:center; gap:6px; padding:8px 14px;
+  background:#fdf2f8; border-radius:10px; font-size:13px; cursor:pointer;
+  border:1.5px solid #fce7f3; transition:.2s;
+}
+.suggest-food:hover { border-color:#ec4899; background:#fce7f3; }
+.suggest-food-name { font-weight:500; }
+.suggest-food-val { color:#ec4899; font-weight:600; font-size:12px; }
+.suggest-all-good {
+  background:#fff; border-radius:14px; padding:24px; text-align:center;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.suggest-all-good .icon { font-size:48px; margin-bottom:8px; }
+.suggest-all-good p { font-size:14px; color:#6b7280; }
+.suggest-all-good h3 { font-size:16px; color:#166534; margin-bottom:4px; }
+
+.suggest-diet-pills { display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap; }
+.sdp {
+  padding:6px 14px; border-radius:16px; border:1.5px solid #e5e7eb;
+  background:#fff; cursor:pointer; font-size:12px; font-weight:500; transition:.2s;
+}
+.sdp.active { background:#ec4899; color:#fff; border-color:#ec4899; }
+
 .empty-state {
   text-align:center; padding:40px 20px; color:#9ca3af;
 }
@@ -214,7 +259,7 @@ body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-he
 
 <div class="content">
 
-  <!-- ── FOOD CHECKER ──────────────────────────────────── -->
+  <!-- FOOD CHECKER -->
   <div id="foods" class="section active">
     <div class="diet-pills">
       <div class="pill pill-veg active" onclick="setDiet('veg',this)">&#x1F33F; Veg</div>
@@ -234,7 +279,7 @@ body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-he
     <div id="foodResults" class="card-grid"></div>
   </div>
 
-  <!-- ── MEAL PLANS ────────────────────────────────────── -->
+  <!-- MEAL PLANS -->
   <div id="meals" class="section">
     <div class="diet-pills">
       <div class="pill pill-veg active" onclick="setMealDiet('veg',this)">&#x1F33F; Veg</div>
@@ -253,7 +298,7 @@ body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-he
     <div id="mealResults"></div>
   </div>
 
-  <!-- ── DAILY LOG ─────────────────────────────────────── -->
+  <!-- DAILY LOG -->
   <div id="log" class="section">
     <div class="log-form">
       <h3>&#x2795; Log what you ate</h3>
@@ -262,7 +307,6 @@ body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-he
           <label>Food</label>
           <input type="text" id="logFoodSearch" placeholder="Type to search..." oninput="searchLogFoods()" autocomplete="off">
           <div id="logFoodSuggestions" class="food-suggestions"></div>
-          <input type="hidden" id="logFoodId">
         </div>
         <div class="form-group" style="max-width:100px;">
           <label>Quantity (g)</label>
@@ -284,22 +328,155 @@ body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-he
     <div id="logList" class="log-list"></div>
   </div>
 
-  <!-- ── DASHBOARD ─────────────────────────────────────── -->
+  <!-- DASHBOARD -->
   <div id="dashboard" class="section">
     <div class="dash-card">
       <div class="dash-title">Today's Nutrition Progress</div>
       <div class="dash-sub">Recommended daily intake for pregnant women</div>
       <div id="dashProgress"></div>
     </div>
+
+    <div class="suggest-section">
+      <div class="dash-card" style="border-left:4px solid #ef4444;">
+        <div class="dash-title">&#x1F4A1; What should you eat next?</div>
+        <div class="dash-sub">Based on your nutrient gaps today — top foods to fill the deficit</div>
+        <div class="suggest-diet-pills">
+          <div class="sdp active" onclick="setSuggestDiet('veg',this)">&#x1F33F; Veg</div>
+          <div class="sdp" onclick="setSuggestDiet('non-veg',this)">&#x1F356; Non-Veg</div>
+          <div class="sdp" onclick="setSuggestDiet('egg',this)">&#x1F95A; Egg</div>
+          <div class="sdp" onclick="setSuggestDiet('vegan',this)">&#x1F331; Vegan</div>
+        </div>
+        <div id="suggestResults"></div>
+      </div>
+    </div>
   </div>
 
 </div>
 
 <script>
-const API = window.location.origin;
+// ── ALL DATA EMBEDDED (no backend needed) ──────────────────────
+
+const FOODS = [
+  {id:1,name:"Spinach (Palak)",category:"vegetable",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:2.7,calcium_mg:99,folic_acid_mcg:194,protein_g:2.9},
+  {id:2,name:"Paneer",category:"dairy",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.2,calcium_mg:208,folic_acid_mcg:15,protein_g:18.3},
+  {id:3,name:"Dal (Moong)",category:"grain",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:3.0,calcium_mg:27,folic_acid_mcg:159,protein_g:24.0},
+  {id:4,name:"Dal (Masoor)",category:"grain",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:3.3,calcium_mg:19,folic_acid_mcg:181,protein_g:25.8},
+  {id:5,name:"Curd (Dahi)",category:"dairy",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.1,calcium_mg:110,folic_acid_mcg:7,protein_g:3.5},
+  {id:6,name:"Milk",category:"dairy",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.1,calcium_mg:125,folic_acid_mcg:5,protein_g:3.4},
+  {id:7,name:"Banana",category:"fruit",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"1",iron_mg:0.3,calcium_mg:5,folic_acid_mcg:20,protein_g:1.1},
+  {id:8,name:"Pomegranate",category:"fruit",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.3,calcium_mg:10,folic_acid_mcg:38,protein_g:1.7},
+  {id:9,name:"Sweet Potato",category:"vegetable",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"1",iron_mg:0.6,calcium_mg:30,folic_acid_mcg:11,protein_g:1.6},
+  {id:10,name:"Beetroot",category:"vegetable",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.8,calcium_mg:16,folic_acid_mcg:109,protein_g:1.6},
+  {id:11,name:"Broccoli",category:"vegetable",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.7,calcium_mg:47,folic_acid_mcg:63,protein_g:2.8},
+  {id:12,name:"Carrot",category:"vegetable",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.3,calcium_mg:33,folic_acid_mcg:19,protein_g:0.9},
+  {id:13,name:"Roti (Wheat)",category:"grain",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:2.5,calcium_mg:30,folic_acid_mcg:28,protein_g:11.0},
+  {id:14,name:"Rice (White)",category:"grain",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.8,calcium_mg:10,folic_acid_mcg:8,protein_g:2.7},
+  {id:15,name:"Oats",category:"grain",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:4.7,calcium_mg:54,folic_acid_mcg:56,protein_g:16.9},
+  {id:16,name:"Mango",category:"fruit",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"2",iron_mg:0.2,calcium_mg:11,folic_acid_mcg:43,protein_g:0.8},
+  {id:17,name:"Apple",category:"fruit",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.1,calcium_mg:6,folic_acid_mcg:3,protein_g:0.3},
+  {id:18,name:"Orange",category:"fruit",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.1,calcium_mg:40,folic_acid_mcg:30,protein_g:0.9},
+  {id:19,name:"Ghee",category:"dairy",diet_type:"veg",safety:"moderation",safety_reason:"High in saturated fat, limit to 1-2 tsp per day",trimester_best:"all",iron_mg:0.0,calcium_mg:0,folic_acid_mcg:0,protein_g:0.0},
+  {id:20,name:"Potato",category:"vegetable",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.8,calcium_mg:12,folic_acid_mcg:15,protein_g:2.0},
+  {id:21,name:"Rajma (Kidney Beans)",category:"grain",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:2.9,calcium_mg:43,folic_acid_mcg:130,protein_g:8.7},
+  {id:22,name:"Chana (Chickpeas)",category:"grain",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:2.9,calcium_mg:49,folic_acid_mcg:172,protein_g:8.9},
+  {id:23,name:"Dry Dates (Khajur)",category:"fruit",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"3",iron_mg:1.0,calcium_mg:64,folic_acid_mcg:15,protein_g:2.5},
+  {id:24,name:"Coconut Water",category:"beverage",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.3,calcium_mg:24,folic_acid_mcg:3,protein_g:0.7},
+  {id:25,name:"Buttermilk (Chaas)",category:"beverage",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.0,calcium_mg:116,folic_acid_mcg:5,protein_g:3.3},
+  {id:26,name:"Amla (Indian Gooseberry)",category:"fruit",diet_type:"veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.3,calcium_mg:25,folic_acid_mcg:6,protein_g:0.9},
+  {id:27,name:"Chicken Breast",category:"meat",diet_type:"non-veg",safety:"safe",safety_reason:"Must be fully cooked",trimester_best:"all",iron_mg:0.7,calcium_mg:11,folic_acid_mcg:4,protein_g:31.0},
+  {id:28,name:"Mutton (Goat)",category:"meat",diet_type:"non-veg",safety:"safe",safety_reason:"Must be fully cooked",trimester_best:"all",iron_mg:2.8,calcium_mg:13,folic_acid_mcg:5,protein_g:27.0},
+  {id:29,name:"Salmon",category:"seafood",diet_type:"non-veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.3,calcium_mg:9,folic_acid_mcg:7,protein_g:20.0},
+  {id:30,name:"Sardine",category:"seafood",diet_type:"non-veg",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:2.9,calcium_mg:382,folic_acid_mcg:10,protein_g:25.0},
+  {id:31,name:"Prawns",category:"seafood",diet_type:"non-veg",safety:"moderation",safety_reason:"Limit to 2-3 servings per week, ensure fully cooked",trimester_best:"all",iron_mg:0.5,calcium_mg:70,folic_acid_mcg:3,protein_g:24.0},
+  {id:32,name:"Chicken Liver",category:"meat",diet_type:"non-veg",safety:"moderation",safety_reason:"Very high in Vitamin A, excess can harm baby. Limit to once a week",trimester_best:"2",iron_mg:9.0,calcium_mg:5,folic_acid_mcg:560,protein_g:26.0},
+  {id:33,name:"Fish Curry (Rohu)",category:"seafood",diet_type:"non-veg",safety:"safe",safety_reason:"Must be fully cooked",trimester_best:"all",iron_mg:0.6,calcium_mg:40,folic_acid_mcg:8,protein_g:17.0},
+  {id:34,name:"Boiled Egg",category:"egg",diet_type:"egg",safety:"safe",safety_reason:"Must be fully cooked, avoid runny yolk",trimester_best:"all",iron_mg:1.2,calcium_mg:50,folic_acid_mcg:44,protein_g:13.0},
+  {id:35,name:"Egg Omelette",category:"egg",diet_type:"egg",safety:"safe",safety_reason:"Must be fully cooked",trimester_best:"all",iron_mg:1.5,calcium_mg:48,folic_acid_mcg:40,protein_g:11.0},
+  {id:36,name:"Egg Curry",category:"egg",diet_type:"egg",safety:"safe",safety_reason:"Must be fully cooked",trimester_best:"all",iron_mg:1.8,calcium_mg:55,folic_acid_mcg:42,protein_g:12.0},
+  {id:37,name:"Egg Bhurji",category:"egg",diet_type:"egg",safety:"safe",safety_reason:"Must be fully cooked",trimester_best:"all",iron_mg:1.4,calcium_mg:45,folic_acid_mcg:38,protein_g:10.5},
+  {id:38,name:"Tofu",category:"dairy",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:5.4,calcium_mg:350,folic_acid_mcg:15,protein_g:8.0},
+  {id:39,name:"Soy Milk",category:"beverage",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:0.6,calcium_mg:25,folic_acid_mcg:18,protein_g:3.3},
+  {id:40,name:"Quinoa",category:"grain",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:1.5,calcium_mg:17,folic_acid_mcg:42,protein_g:4.4},
+  {id:41,name:"Chia Seeds",category:"nuts",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:7.7,calcium_mg:631,folic_acid_mcg:49,protein_g:17.0},
+  {id:42,name:"Almonds (Badam)",category:"nuts",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:3.7,calcium_mg:264,folic_acid_mcg:44,protein_g:21.2},
+  {id:43,name:"Walnuts (Akhrot)",category:"nuts",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:2.9,calcium_mg:98,folic_acid_mcg:98,protein_g:15.2},
+  {id:44,name:"Flax Seeds (Alsi)",category:"nuts",diet_type:"vegan",safety:"moderation",safety_reason:"Contains phytoestrogens, limit to 1 tbsp per day",trimester_best:"all",iron_mg:5.7,calcium_mg:255,folic_acid_mcg:87,protein_g:18.3},
+  {id:45,name:"Peanuts (Moongfali)",category:"nuts",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:4.6,calcium_mg:92,folic_acid_mcg:240,protein_g:25.8},
+  {id:46,name:"Sesame Seeds (Til)",category:"nuts",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:14.6,calcium_mg:975,folic_acid_mcg:97,protein_g:17.7},
+  {id:47,name:"Ragi (Finger Millet)",category:"grain",diet_type:"vegan",safety:"safe",safety_reason:null,trimester_best:"all",iron_mg:3.9,calcium_mg:344,folic_acid_mcg:18,protein_g:7.3},
+  {id:48,name:"Raw Papaya",category:"fruit",diet_type:"veg",safety:"unsafe",safety_reason:"Contains papain enzyme that can cause uterine contractions and early labour",trimester_best:"all",iron_mg:0.3,calcium_mg:20,folic_acid_mcg:37,protein_g:0.5},
+  {id:49,name:"Pineapple",category:"fruit",diet_type:"veg",safety:"moderation",safety_reason:"Contains bromelain which may soften cervix. Small amounts are okay, avoid in first trimester",trimester_best:"2",iron_mg:0.3,calcium_mg:13,folic_acid_mcg:18,protein_g:0.5},
+  {id:50,name:"Raw/Sushi Fish",category:"seafood",diet_type:"non-veg",safety:"unsafe",safety_reason:"Risk of listeria, salmonella, and parasites. Always eat fully cooked fish",trimester_best:"all",iron_mg:0.5,calcium_mg:10,folic_acid_mcg:5,protein_g:20.0},
+  {id:51,name:"Soft Cheese (Brie/Camembert)",category:"dairy",diet_type:"veg",safety:"unsafe",safety_reason:"Unpasteurised soft cheese can contain listeria bacteria harmful to baby",trimester_best:"all",iron_mg:0.2,calcium_mg:184,folic_acid_mcg:18,protein_g:17.0},
+  {id:52,name:"Coffee",category:"beverage",diet_type:"veg",safety:"moderation",safety_reason:"Limit caffeine to 200mg per day (about 1 cup). Excess linked to low birth weight",trimester_best:"all",iron_mg:0.0,calcium_mg:2,folic_acid_mcg:0,protein_g:0.0},
+  {id:53,name:"Tea (Chai)",category:"beverage",diet_type:"veg",safety:"moderation",safety_reason:"Contains caffeine and tannins which reduce iron absorption. Limit to 1-2 cups",trimester_best:"all",iron_mg:0.0,calcium_mg:0,folic_acid_mcg:0,protein_g:0.0},
+  {id:54,name:"Alcohol",category:"beverage",diet_type:"veg",safety:"unsafe",safety_reason:"No safe amount during pregnancy. Can cause fetal alcohol syndrome",trimester_best:"all",iron_mg:0.0,calcium_mg:0,folic_acid_mcg:0,protein_g:0.0},
+  {id:55,name:"Ajinomoto (MSG)",category:"other",diet_type:"veg",safety:"unsafe",safety_reason:"May cross placenta and affect fetal brain development. Avoid Chinese food with MSG",trimester_best:"all",iron_mg:0.0,calcium_mg:0,folic_acid_mcg:0,protein_g:0.0},
+  {id:56,name:"Raw Sprouts",category:"vegetable",diet_type:"veg",safety:"unsafe",safety_reason:"Raw sprouts may harbour salmonella and E.coli. Always cook sprouts thoroughly",trimester_best:"all",iron_mg:0.9,calcium_mg:13,folic_acid_mcg:60,protein_g:3.0},
+];
+
+const MEALS = [
+  {id:1,name:"Oats with Milk & Banana",meal_type:"breakfast",diet_type:"veg",trimester:"1",description:"Easy on stomach, great for morning sickness",ingredients:"Oats, milk, banana, honey, cardamom"},
+  {id:2,name:"Poha with Peanuts",meal_type:"breakfast",diet_type:"veg",trimester:"all",description:"Light, iron-rich breakfast",ingredients:"Flattened rice, peanuts, curry leaves, turmeric, lemon"},
+  {id:3,name:"Ragi Dosa with Chutney",meal_type:"breakfast",diet_type:"veg",trimester:"all",description:"Calcium-rich traditional breakfast",ingredients:"Ragi flour, rice flour, coconut chutney"},
+  {id:4,name:"Paneer Paratha with Curd",meal_type:"breakfast",diet_type:"veg",trimester:"2",description:"Protein and calcium packed",ingredients:"Wheat flour, paneer, curd, spices"},
+  {id:5,name:"Palak Dal with Rice",meal_type:"lunch",diet_type:"veg",trimester:"all",description:"Iron and folic acid rich complete meal",ingredients:"Spinach, moong dal, rice, ghee, cumin"},
+  {id:6,name:"Rajma Chawal",meal_type:"lunch",diet_type:"veg",trimester:"all",description:"Protein-rich comfort food",ingredients:"Kidney beans, rice, onion, tomato, spices"},
+  {id:7,name:"Chole with Roti",meal_type:"lunch",diet_type:"veg",trimester:"2",description:"High protein and iron",ingredients:"Chickpeas, wheat roti, onion, spices"},
+  {id:8,name:"Vegetable Khichdi",meal_type:"lunch",diet_type:"veg",trimester:"1",description:"Easy to digest, good during nausea",ingredients:"Rice, moong dal, mixed vegetables, ghee"},
+  {id:9,name:"Beetroot Raita",meal_type:"snack",diet_type:"veg",trimester:"all",description:"Iron and calcium booster",ingredients:"Beetroot, curd, cumin, salt"},
+  {id:10,name:"Dry Fruit Laddoo",meal_type:"snack",diet_type:"veg",trimester:"3",description:"Energy booster for third trimester",ingredients:"Dates, almonds, walnuts, coconut, ghee"},
+  {id:11,name:"Fruit Chaat",meal_type:"snack",diet_type:"veg",trimester:"all",description:"Vitamin C rich refreshing snack",ingredients:"Pomegranate, apple, banana, orange, chaat masala"},
+  {id:12,name:"Paneer Butter Masala with Roti",meal_type:"dinner",diet_type:"veg",trimester:"2",description:"Protein-rich satisfying dinner",ingredients:"Paneer, butter, tomato, cream, wheat roti"},
+  {id:13,name:"Dal Tadka with Roti",meal_type:"dinner",diet_type:"veg",trimester:"all",description:"Light yet nutritious dinner",ingredients:"Masoor dal, ghee, cumin, garlic, roti"},
+  {id:14,name:"Mixed Veg Curry with Rice",meal_type:"dinner",diet_type:"veg",trimester:"all",description:"Balanced meal with multiple nutrients",ingredients:"Carrot, beans, potato, peas, rice"},
+  {id:15,name:"Chicken Sandwich",meal_type:"breakfast",diet_type:"non-veg",trimester:"all",description:"Protein-packed start to the day",ingredients:"Whole wheat bread, chicken breast, lettuce, tomato"},
+  {id:16,name:"Chicken Curry with Rice",meal_type:"lunch",diet_type:"non-veg",trimester:"all",description:"High protein complete meal",ingredients:"Chicken, rice, onion, tomato, ginger, spices"},
+  {id:17,name:"Mutton Keema with Roti",meal_type:"lunch",diet_type:"non-veg",trimester:"2",description:"Iron-rich meal for preventing anaemia",ingredients:"Minced mutton, wheat roti, peas, spices"},
+  {id:18,name:"Fish Curry with Rice",meal_type:"lunch",diet_type:"non-veg",trimester:"all",description:"Omega-3 rich brain food for baby",ingredients:"Rohu fish, rice, mustard, turmeric, coconut"},
+  {id:19,name:"Chicken Soup",meal_type:"snack",diet_type:"non-veg",trimester:"1",description:"Soothing during morning sickness",ingredients:"Chicken, carrots, celery, garlic, ginger"},
+  {id:20,name:"Grilled Salmon with Vegetables",meal_type:"dinner",diet_type:"non-veg",trimester:"all",description:"Omega-3 and DHA for baby brain development",ingredients:"Salmon, broccoli, lemon, olive oil"},
+  {id:21,name:"Chicken Biryani",meal_type:"dinner",diet_type:"non-veg",trimester:"2",description:"Flavourful protein meal (limit spice)",ingredients:"Chicken, basmati rice, yogurt, saffron, spices"},
+  {id:22,name:"Boiled Egg with Toast",meal_type:"breakfast",diet_type:"egg",trimester:"all",description:"Quick protein breakfast",ingredients:"Eggs, whole wheat bread, butter"},
+  {id:23,name:"Egg Omelette with Vegetables",meal_type:"breakfast",diet_type:"egg",trimester:"all",description:"Protein and folate rich start",ingredients:"Eggs, onion, tomato, capsicum, spinach"},
+  {id:24,name:"Egg Fried Rice",meal_type:"lunch",diet_type:"egg",trimester:"all",description:"Quick and filling meal",ingredients:"Rice, eggs, vegetables, soy sauce, garlic"},
+  {id:25,name:"Egg Curry with Roti",meal_type:"dinner",diet_type:"egg",trimester:"all",description:"Protein-rich Indian dinner",ingredients:"Eggs, onion, tomato, spices, roti"},
+  {id:26,name:"Egg Bhurji with Paratha",meal_type:"dinner",diet_type:"egg",trimester:"2",description:"Scrambled egg with Indian spices",ingredients:"Eggs, onion, green chilli, coriander, paratha"},
+  {id:27,name:"Quinoa Porridge with Nuts",meal_type:"breakfast",diet_type:"vegan",trimester:"all",description:"Complete protein breakfast",ingredients:"Quinoa, almond milk, almonds, walnuts, honey"},
+  {id:28,name:"Ragi Porridge with Jaggery",meal_type:"breakfast",diet_type:"vegan",trimester:"all",description:"Calcium powerhouse",ingredients:"Ragi flour, jaggery, cardamom, soy milk"},
+  {id:29,name:"Tofu Stir Fry with Rice",meal_type:"lunch",diet_type:"vegan",trimester:"all",description:"High protein plant-based meal",ingredients:"Tofu, bell peppers, broccoli, soy sauce, rice"},
+  {id:30,name:"Chana Masala with Quinoa",meal_type:"lunch",diet_type:"vegan",trimester:"all",description:"Iron and protein rich",ingredients:"Chickpeas, quinoa, tomato, onion, spices"},
+  {id:31,name:"Trail Mix",meal_type:"snack",diet_type:"vegan",trimester:"all",description:"Energy and nutrient dense snack",ingredients:"Almonds, walnuts, pumpkin seeds, dried cranberries"},
+  {id:32,name:"Peanut Butter Banana Smoothie",meal_type:"snack",diet_type:"vegan",trimester:"all",description:"Protein and potassium boost",ingredients:"Banana, peanut butter, soy milk, chia seeds"},
+  {id:33,name:"Dal with Ragi Roti",meal_type:"dinner",diet_type:"vegan",trimester:"all",description:"Iron + calcium combo dinner",ingredients:"Masoor dal, ragi flour roti, garlic, cumin"},
+  {id:34,name:"Mushroom Curry with Rice",meal_type:"dinner",diet_type:"vegan",trimester:"2",description:"B-vitamin rich comforting meal",ingredients:"Mushrooms, coconut milk, rice, spices"},
+];
+
+const DAILY_RECOMMENDED = {iron_mg:27.0, calcium_mg:1000.0, folic_acid_mcg:600.0, protein_g:71.0};
+
+// ── STATE ──────────────────────────────────────────────────────
+
 let currentDiet = 'veg';
 let mealDiet = 'veg';
 let selectedLogFoodId = null;
+let suggestDiet = 'veg';
+
+function todayKey() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function getLog() {
+  const all = JSON.parse(localStorage.getItem('pregnancy_diet_log') || '{}');
+  return all[todayKey()] || [];
+}
+
+function saveLog(entries) {
+  const all = JSON.parse(localStorage.getItem('pregnancy_diet_log') || '{}');
+  all[todayKey()] = entries;
+  localStorage.setItem('pregnancy_diet_log', JSON.stringify(all));
+}
+
+// ── TAB SWITCHING ──────────────────────────────────────────────
 
 function switchTab(tab) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -310,8 +487,10 @@ function switchTab(tab) {
   if (tab === 'foods') searchFoods();
   if (tab === 'meals') loadMeals();
   if (tab === 'log') loadLog();
-  if (tab === 'dashboard') loadDashboard();
+  if (tab === 'dashboard') { loadDashboard(); loadSuggestions(); }
 }
+
+// ── FOOD CHECKER ───────────────────────────────────────────────
 
 function setDiet(diet, el) {
   currentDiet = diet;
@@ -320,23 +499,15 @@ function setDiet(diet, el) {
   searchFoods();
 }
 
-function setMealDiet(diet, el) {
-  mealDiet = diet;
-  document.querySelectorAll('#meals .pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  loadMeals();
-}
-
-async function searchFoods() {
-  const search = document.getElementById('foodSearch').value;
+function searchFoods() {
+  const search = document.getElementById('foodSearch').value.toLowerCase();
   const safety = document.getElementById('safetyFilter').value;
-  let url = `${API}/api/foods?diet=${currentDiet}`;
-  if (search) url += `&search=${encodeURIComponent(search)}`;
-  if (safety) url += `&safety=${safety}`;
 
-  const res = await fetch(url);
-  const foods = await res.json();
-  renderFoods(foods);
+  let results = FOODS.filter(f => f.diet_type === currentDiet);
+  if (search) results = results.filter(f => f.name.toLowerCase().includes(search));
+  if (safety) results = results.filter(f => f.safety === safety);
+  results.sort((a, b) => a.name.localeCompare(b.name));
+  renderFoods(results);
 }
 
 function renderFoods(foods) {
@@ -347,13 +518,14 @@ function renderFoods(foods) {
   }
   grid.innerHTML = foods.map(f => `
     <div class="food-card ${f.safety}">
-      <div style="display:flex;justify-content:space-between;align-items:start;">
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
         <div class="food-name">${f.name}</div>
         <span class="food-badge badge-${f.safety}">${f.safety === 'safe' ? '&#x2705; Safe' : f.safety === 'unsafe' ? '&#x274C; Avoid' : '&#x26A0;&#xFE0F; Limit'}</span>
       </div>
       <div class="food-meta">
         <span class="food-badge badge-${f.diet_type === 'non-veg' ? 'nonveg' : f.diet_type}">${f.diet_type}</span>
-        &middot; ${f.category} &middot; Best in: ${f.trimester_best === 'all' ? 'All trimesters' : 'Trimester ' + f.trimester_best}
+        <span>&middot; ${f.category}</span>
+        <span>&middot; Best in: ${f.trimester_best === 'all' ? 'All trimesters' : 'Trimester ' + f.trimester_best}</span>
       </div>
       ${f.safety_reason ? `<div class="food-reason">&#x26A0;&#xFE0F; ${f.safety_reason}</div>` : ''}
       <div class="nutrients-row">
@@ -366,14 +538,25 @@ function renderFoods(foods) {
   `).join('');
 }
 
-async function loadMeals() {
-  const trimester = document.getElementById('trimesterFilter').value;
-  let url = `${API}/api/meals?diet=${mealDiet}`;
-  if (trimester) url += `&trimester=${trimester}`;
+// ── MEAL PLANS ─────────────────────────────────────────────────
 
-  const res = await fetch(url);
-  const meals = await res.json();
-  renderMeals(meals);
+function setMealDiet(diet, el) {
+  mealDiet = diet;
+  document.querySelectorAll('#meals .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  loadMeals();
+}
+
+function loadMeals() {
+  const trimester = document.getElementById('trimesterFilter').value;
+
+  let results = MEALS.filter(m => m.diet_type === mealDiet);
+  if (trimester) results = results.filter(m => m.trimester === trimester || m.trimester === 'all');
+  results.sort((a, b) => {
+    const order = ['breakfast','lunch','snack','dinner'];
+    return order.indexOf(a.meal_type) - order.indexOf(b.meal_type) || a.name.localeCompare(b.name);
+  });
+  renderMeals(results);
 }
 
 function renderMeals(meals) {
@@ -409,18 +592,18 @@ function renderMeals(meals) {
   container.innerHTML = html;
 }
 
-async function searchLogFoods() {
-  const search = document.getElementById('logFoodSearch').value;
+// ── DAILY LOG (localStorage) ───────────────────────────────────
+
+function searchLogFoods() {
+  const search = document.getElementById('logFoodSearch').value.toLowerCase();
   const sugBox = document.getElementById('logFoodSuggestions');
 
   if (search.length < 2) { sugBox.classList.remove('show'); return; }
 
-  const res = await fetch(`${API}/api/foods?search=${encodeURIComponent(search)}`);
-  const foods = await res.json();
+  const matches = FOODS.filter(f => f.safety !== 'unsafe' && f.name.toLowerCase().includes(search)).slice(0, 8);
+  if (!matches.length) { sugBox.classList.remove('show'); return; }
 
-  if (!foods.length) { sugBox.classList.remove('show'); return; }
-
-  sugBox.innerHTML = foods.slice(0, 8).map(f =>
+  sugBox.innerHTML = matches.map(f =>
     `<div class="food-suggestion" onclick="selectLogFood(${f.id},'${f.name.replace(/'/g,"\\'")}')">
       ${f.name} <span style="color:#9ca3af;font-size:11px;">(${f.diet_type})</span>
     </div>`
@@ -430,87 +613,199 @@ async function searchLogFoods() {
 
 function selectLogFood(id, name) {
   document.getElementById('logFoodSearch').value = name;
-  document.getElementById('logFoodId').value = id;
   selectedLogFoodId = id;
   document.getElementById('logFoodSuggestions').classList.remove('show');
 }
 
-async function addLog() {
-  const foodId = selectedLogFoodId || document.getElementById('logFoodId').value;
-  const quantity = document.getElementById('logQuantity').value;
+function addLog() {
+  const foodId = selectedLogFoodId;
+  const quantity = parseFloat(document.getElementById('logQuantity').value);
   const mealType = document.getElementById('logMealType').value;
 
   if (!foodId) { alert('Please select a food item first'); return; }
   if (!quantity || quantity <= 0) { alert('Please enter a valid quantity'); return; }
 
-  const today = new Date().toISOString().split('T')[0];
-
-  await fetch(`${API}/api/log`, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ food_id: parseInt(foodId), quantity_g: parseFloat(quantity), meal_type: mealType, date: today })
+  const entries = getLog();
+  entries.push({
+    id: Date.now(),
+    food_id: foodId,
+    quantity_g: quantity,
+    meal_type: mealType,
   });
+  saveLog(entries);
 
   document.getElementById('logFoodSearch').value = '';
-  document.getElementById('logFoodId').value = '';
   selectedLogFoodId = null;
   document.getElementById('logQuantity').value = '100';
   loadLog();
 }
 
-async function loadLog() {
-  const today = new Date().toISOString().split('T')[0];
-  const res = await fetch(`${API}/api/log?log_date=${today}`);
-  const logs = await res.json();
-
+function loadLog() {
+  const entries = getLog();
   const container = document.getElementById('logList');
-  if (!logs.length) {
+
+  if (!entries.length) {
     container.innerHTML = '<div class="empty-state"><div class="icon">&#x1F4DD;</div><p>No food logged today. Start by adding what you ate!</p></div>';
     return;
   }
 
-  container.innerHTML = logs.map(l => `
+  container.innerHTML = entries.map(l => {
+    const food = FOODS.find(f => f.id === l.food_id);
+    const name = food ? food.name : 'Unknown';
+    const ratio = l.quantity_g / 100;
+    const iron = food ? (food.iron_mg * ratio).toFixed(2) : 0;
+    const calcium = food ? (food.calcium_mg * ratio).toFixed(2) : 0;
+    const folic = food ? (food.folic_acid_mcg * ratio).toFixed(2) : 0;
+    const protein = food ? (food.protein_g * ratio).toFixed(2) : 0;
+    return `
     <div class="log-item">
       <div class="log-info">
-        <div class="log-food">${l.food_name}</div>
-        <div class="log-detail">${l.quantity_g}g &middot; ${l.meal_type} &middot; Iron: ${l.nutrients.iron_mg}mg, Ca: ${l.nutrients.calcium_mg}mg, Folic: ${l.nutrients.folic_acid_mcg}mcg, Protein: ${l.nutrients.protein_g}g</div>
+        <div class="log-food">${name}</div>
+        <div class="log-detail">${l.quantity_g}g &middot; ${l.meal_type} &middot; Iron: ${iron}mg, Ca: ${calcium}mg, Folic: ${folic}mcg, Protein: ${protein}g</div>
       </div>
       <button class="btn btn-sm btn-danger" onclick="deleteLog(${l.id})">&#x1F5D1;</button>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
-async function deleteLog(id) {
-  await fetch(`${API}/api/log/${id}`, { method: 'DELETE' });
+function deleteLog(id) {
+  const entries = getLog().filter(e => e.id !== id);
+  saveLog(entries);
   loadLog();
   loadDashboard();
+  loadSuggestions();
 }
 
-async function loadDashboard() {
-  const today = new Date().toISOString().split('T')[0];
-  const res = await fetch(`${API}/api/dashboard?log_date=${today}`);
-  const data = await res.json();
+// ── DASHBOARD ──────────────────────────────────────────────────
+
+function calcTotals() {
+  const entries = getLog();
+  const totals = {iron_mg:0, calcium_mg:0, folic_acid_mcg:0, protein_g:0};
+  entries.forEach(l => {
+    const food = FOODS.find(f => f.id === l.food_id);
+    if (food) {
+      const ratio = l.quantity_g / 100;
+      totals.iron_mg += food.iron_mg * ratio;
+      totals.calcium_mg += food.calcium_mg * ratio;
+      totals.folic_acid_mcg += food.folic_acid_mcg * ratio;
+      totals.protein_g += food.protein_g * ratio;
+    }
+  });
+  return {
+    iron_mg: Math.round(totals.iron_mg * 100) / 100,
+    calcium_mg: Math.round(totals.calcium_mg * 100) / 100,
+    folic_acid_mcg: Math.round(totals.folic_acid_mcg * 100) / 100,
+    protein_g: Math.round(totals.protein_g * 100) / 100,
+  };
+}
+
+function loadDashboard() {
+  const totals = calcTotals();
 
   const nutrients = [
-    { key:'iron_mg', label:'Iron', unit:'mg', fill:'fill-iron', icon:'&#x1FA78;' },
-    { key:'calcium_mg', label:'Calcium', unit:'mg', fill:'fill-calcium', icon:'&#x1F9B4;' },
-    { key:'folic_acid_mcg', label:'Folic Acid', unit:'mcg', fill:'fill-folic', icon:'&#x1F33F;' },
-    { key:'protein_g', label:'Protein', unit:'g', fill:'fill-protein', icon:'&#x1F4AA;' },
+    {key:'iron_mg', label:'Iron', unit:'mg', fill:'fill-iron', icon:'&#x1FA78;'},
+    {key:'calcium_mg', label:'Calcium', unit:'mg', fill:'fill-calcium', icon:'&#x1F9B4;'},
+    {key:'folic_acid_mcg', label:'Folic Acid', unit:'mcg', fill:'fill-folic', icon:'&#x1F33F;'},
+    {key:'protein_g', label:'Protein', unit:'g', fill:'fill-protein', icon:'&#x1F4AA;'},
   ];
 
   const container = document.getElementById('dashProgress');
-  container.innerHTML = nutrients.map(n => `
+  container.innerHTML = nutrients.map(n => {
+    const consumed = totals[n.key];
+    const recommended = DAILY_RECOMMENDED[n.key];
+    const pct = Math.min(Math.round((consumed / recommended) * 1000) / 10, 100);
+    return `
     <div class="progress-item">
       <div class="progress-header">
         <span class="progress-name">${n.icon} ${n.label}</span>
-        <span class="progress-val">${data.consumed[n.key]} / ${data.recommended[n.key]} ${n.unit} (${data.percentage[n.key]}%)</span>
+        <span class="progress-val">${consumed} / ${recommended} ${n.unit} (${pct}%)</span>
       </div>
       <div class="progress-bar">
-        <div class="progress-fill ${n.fill}" style="width:${data.percentage[n.key]}%"></div>
+        <div class="progress-fill ${n.fill}" style="width:${pct}%"></div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
+
+// ── SUGGESTIONS ────────────────────────────────────────────────
+
+function setSuggestDiet(diet, el) {
+  suggestDiet = diet;
+  document.querySelectorAll('.sdp').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  loadSuggestions();
+}
+
+function loadSuggestions() {
+  const totals = calcTotals();
+  const container = document.getElementById('suggestResults');
+
+  const nutrientKeys = [
+    {key:'iron_mg', label:'Iron', unit:'mg', minVal:2.0},
+    {key:'calcium_mg', label:'Calcium', unit:'mg', minVal:2.0},
+    {key:'folic_acid_mcg', label:'Folic Acid', unit:'mcg', minVal:2.0},
+    {key:'protein_g', label:'Protein', unit:'g', minVal:2.0},
+  ];
+
+  const lowNutrients = [];
+  nutrientKeys.forEach(n => {
+    const consumed = totals[n.key];
+    const recommended = DAILY_RECOMMENDED[n.key];
+    const pct = recommended ? (consumed / recommended) * 100 : 100;
+    if (pct < 60) {
+      lowNutrients.push({...n, consumed, recommended, pct: Math.round(pct * 10) / 10});
+    }
+  });
+
+  lowNutrients.sort((a, b) => a.pct - b.pct);
+
+  if (!lowNutrients.length) {
+    container.innerHTML = `
+      <div class="suggest-all-good">
+        <div class="icon">&#x1F389;</div>
+        <h3>Great job!</h3>
+        <p>You're meeting your nutrient targets for today. Keep it up!</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = lowNutrients.map(low => {
+    const topFoods = FOODS
+      .filter(f => f.safety !== 'unsafe' && f[low.key] > low.minVal && f.diet_type === suggestDiet)
+      .sort((a, b) => b[low.key] - a[low.key])
+      .slice(0, 5);
+
+    const deficit = Math.round((low.recommended - low.consumed) * 100) / 100;
+
+    return `
+    <div class="suggest-card">
+      <div class="suggest-header">
+        <span class="suggest-nutrient">&#x1F534; ${low.label} is low</span>
+        <span class="suggest-deficit">Need ${deficit} ${low.unit} more &middot; ${low.pct}% done</span>
+      </div>
+      <div class="suggest-label">Top foods rich in ${low.label} (per 100g):</div>
+      <div class="suggest-foods">
+        ${topFoods.length ? topFoods.map(f => `
+          <div class="suggest-food" onclick="quickLog(${f.id},'${f.name.replace(/'/g,"\\'")}')">
+            <span class="suggest-food-name">${f.name}</span>
+            <span class="suggest-food-val">${f[low.key]} ${low.unit}</span>
+          </div>
+        `).join('') : '<span style="color:#9ca3af;font-size:13px;">No matching foods for this diet type</span>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function quickLog(foodId, foodName) {
+  if (!confirm('Log 100g of ' + foodName + '?')) return;
+  const entries = getLog();
+  entries.push({id: Date.now(), food_id: foodId, quantity_g: 100, meal_type: 'snack'});
+  saveLog(entries);
+  loadDashboard();
+  loadSuggestions();
+}
+
+// ── INIT ───────────────────────────────────────────────────────
 
 document.addEventListener('click', e => {
   if (!e.target.closest('.food-search-dropdown')) {

@@ -1,14 +1,10 @@
 {
-  "builds": [
-    {
-      "src": "main.py",
-      "use": "@vercel/python"
-    }
-  ],
+  "buildCommand": "",
+  "outputDirectory": "templates",
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "main.py"
+      "dest": "/index.html"
     }
   ]
 }

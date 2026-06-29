@@ -92,14 +92,7 @@ def get_foods(
     if search:
         query = query.filter(Food.name.ilike(f"%{search}%"))
     if diet:
-        if diet == "non-veg":
-            query = query.filter(Food.diet_type.in_(["veg", "non-veg", "egg"]))
-        elif diet == "egg":
-            query = query.filter(Food.diet_type.in_(["veg", "egg"]))
-        elif diet == "veg":
-            query = query.filter(Food.diet_type == "veg")
-        elif diet == "vegan":
-            query = query.filter(Food.diet_type.in_(["vegan", "veg"]))
+        query = query.filter(Food.diet_type == diet)
     if safety:
         query = query.filter(Food.safety == safety)
     if category:
@@ -242,6 +235,95 @@ def get_dashboard(log_date: Optional[str] = None, db: Session = Depends(get_db))
         "recommended": DAILY_RECOMMENDED,
         "percentage": percentages,
     }
+
+
+# ── FOOD SUGGESTIONS BASED ON NUTRIENT GAPS ────────────────────
+
+NUTRIENT_COLUMN_MAP = {
+    "iron_mg": "iron_mg",
+    "calcium_mg": "calcium_mg",
+    "folic_acid_mcg": "folic_acid_mcg",
+    "protein_g": "protein_g",
+}
+
+NUTRIENT_LABELS = {
+    "iron_mg": "Iron",
+    "calcium_mg": "Calcium",
+    "folic_acid_mcg": "Folic Acid",
+    "protein_g": "Protein",
+}
+
+
+@app.get("/api/suggestions")
+def get_suggestions(
+    log_date: Optional[str] = None,
+    diet: Optional[str] = None,
+    db: Session = Depends(get_db),
+):
+    target_date = datetime.strptime(log_date, "%Y-%m-%d").date() if log_date else date.today()
+
+    logs = db.query(DailyLog).filter(DailyLog.date == target_date).all()
+    totals = {"iron_mg": 0.0, "calcium_mg": 0.0, "folic_acid_mcg": 0.0, "protein_g": 0.0}
+
+    for log in logs:
+        food = db.query(Food).filter(Food.id == log.food_id).first()
+        if food:
+            ratio = log.quantity_g / 100
+            for key in totals:
+                totals[key] += getattr(food, key) * ratio
+
+    low_nutrients = []
+    for nutrient, consumed in totals.items():
+        recommended = DAILY_RECOMMENDED[nutrient]
+        pct = (consumed / recommended) * 100 if recommended else 100
+        if pct < 60:
+            low_nutrients.append({
+                "nutrient": nutrient,
+                "label": NUTRIENT_LABELS[nutrient],
+                "consumed": round(consumed, 2),
+                "recommended": recommended,
+                "percentage": round(pct, 1),
+            })
+
+    low_nutrients.sort(key=lambda x: x["percentage"])
+
+    suggestions = []
+    for low in low_nutrients:
+        col = NUTRIENT_COLUMN_MAP[low["nutrient"]]
+        query = db.query(Food).filter(
+            Food.safety != "unsafe",
+            getattr(Food, col) > 2.0,
+        )
+        if diet:
+            if diet == "non-veg":
+                query = query.filter(Food.diet_type.in_(["veg", "non-veg", "egg"]))
+            elif diet == "egg":
+                query = query.filter(Food.diet_type.in_(["veg", "egg"]))
+            elif diet == "veg":
+                query = query.filter(Food.diet_type == "veg")
+            elif diet == "vegan":
+                query = query.filter(Food.diet_type.in_(["vegan", "veg"]))
+
+        top_foods = query.order_by(getattr(Food, col).desc()).limit(5).all()
+
+        suggestions.append({
+            "nutrient": low["label"],
+            "percentage": low["percentage"],
+            "deficit": round(low["recommended"] - low["consumed"], 2),
+            "unit": "mg" if "mg" in low["nutrient"] else ("mcg" if "mcg" in low["nutrient"] else "g"),
+            "foods": [
+                {
+                    "id": f.id,
+                    "name": f.name,
+                    "value": getattr(f, col),
+                    "diet_type": f.diet_type,
+                    "safety": f.safety,
+                }
+                for f in top_foods
+            ],
+        })
+
+    return {"date": str(target_date), "suggestions": suggestions}
 
 
 # ── UTILITY ENDPOINTS ──────────────────────────────────────────
