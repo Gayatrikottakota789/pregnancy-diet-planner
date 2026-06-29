@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pregnancy Diet & Nutrition Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:#fdf2f8; color:#1e293b; min-height:100vh; }
+
+.header {
+  background:linear-gradient(135deg,#ec4899,#f472b6,#fb923c);
+  color:#fff; padding:20px 24px; text-align:center;
+}
+.header h1 { font-size:22px; font-weight:700; }
+.header p { font-size:13px; opacity:.9; margin-top:4px; }
+
+.tabs {
+  display:flex; background:#fff; border-bottom:2px solid #f3e8ff;
+  position:sticky; top:0; z-index:10; overflow-x:auto;
+}
+.tab {
+  flex:1; padding:12px 8px; text-align:center; cursor:pointer;
+  font-size:13px; font-weight:500; color:#9ca3af; border-bottom:3px solid transparent;
+  transition:.2s; white-space:nowrap; min-width:80px;
+}
+.tab.active { color:#ec4899; border-bottom-color:#ec4899; background:#fdf2f8; }
+.tab:hover { color:#ec4899; }
+.tab-icon { font-size:20px; display:block; margin-bottom:2px; }
+
+.content { max-width:900px; margin:0 auto; padding:16px; }
+.section { display:none; }
+.section.active { display:block; }
+
+.filters {
+  display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;
+}
+.filters input, .filters select {
+  padding:10px 14px; border:1.5px solid #e5e7eb; border-radius:10px;
+  font-size:14px; background:#fff; outline:none; font-family:inherit;
+}
+.filters input:focus, .filters select:focus { border-color:#ec4899; }
+.filters input { flex:1; min-width:150px; }
+.filters select { min-width:120px; }
+
+.diet-pills { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
+.pill {
+  padding:8px 16px; border-radius:20px; border:1.5px solid #e5e7eb;
+  background:#fff; cursor:pointer; font-size:13px; font-weight:500; transition:.2s;
+}
+.pill.active { background:#ec4899; color:#fff; border-color:#ec4899; }
+.pill:hover { border-color:#ec4899; }
+.pill-veg.active { background:#22c55e; border-color:#22c55e; }
+.pill-egg.active { background:#f59e0b; border-color:#f59e0b; }
+.pill-nonveg.active { background:#ef4444; border-color:#ef4444; }
+.pill-vegan.active { background:#10b981; border-color:#10b981; }
+
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+
+.food-card {
+  background:#fff; border-radius:14px; padding:16px; border-left:4px solid #22c55e;
+  box-shadow:0 1px 4px rgba(0,0,0,.06); transition:.2s;
+}
+.food-card:hover { box-shadow:0 4px 12px rgba(0,0,0,.1); transform:translateY(-1px); }
+.food-card.unsafe { border-left-color:#ef4444; }
+.food-card.moderation { border-left-color:#f59e0b; }
+
+.food-name { font-size:16px; font-weight:600; margin-bottom:4px; }
+.food-meta { font-size:12px; color:#6b7280; margin-bottom:8px; }
+.food-badge {
+  display:inline-block; padding:2px 8px; border-radius:8px; font-size:11px; font-weight:600;
+}
+.badge-safe { background:#dcfce7; color:#166534; }
+.badge-unsafe { background:#fee2e2; color:#991b1b; }
+.badge-moderation { background:#fef3c7; color:#92400e; }
+.badge-veg { background:#dcfce7; color:#166534; }
+.badge-nonveg { background:#fee2e2; color:#991b1b; }
+.badge-egg { background:#fef3c7; color:#92400e; }
+.badge-vegan { background:#d1fae5; color:#065f46; }
+
+.food-reason { font-size:12px; color:#dc2626; margin-top:6px; font-style:italic; }
+.nutrients-row {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-top:10px;
+}
+.nutrient-item { text-align:center; padding:4px; background:#f8fafc; border-radius:6px; }
+.nutrient-val { font-size:14px; font-weight:600; color:#ec4899; }
+.nutrient-label { font-size:10px; color:#9ca3af; }
+
+/* Meal cards */
+.meal-group-title {
+  font-size:16px; font-weight:600; margin:20px 0 10px; padding:8px 14px;
+  background:#fff; border-radius:10px; border-left:4px solid #ec4899;
+}
+.meal-group-title:first-child { margin-top:0; }
+.meal-card {
+  background:#fff; border-radius:12px; padding:14px 16px;
+  box-shadow:0 1px 3px rgba(0,0,0,.05); margin-bottom:8px;
+}
+.meal-name { font-size:15px; font-weight:600; }
+.meal-desc { font-size:13px; color:#6b7280; margin:4px 0; }
+.meal-ingredients { font-size:12px; color:#9ca3af; }
+.meal-ingredients span { color:#ec4899; font-weight:500; }
+
+/* Log section */
+.log-form {
+  background:#fff; border-radius:14px; padding:16px; margin-bottom:16px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.log-form h3 { font-size:15px; font-weight:600; margin-bottom:12px; }
+.form-row { display:flex; gap:8px; flex-wrap:wrap; align-items:end; }
+.form-group { display:flex; flex-direction:column; gap:4px; flex:1; min-width:120px; }
+.form-group label { font-size:12px; color:#6b7280; font-weight:500; }
+.form-group input, .form-group select {
+  padding:8px 12px; border:1.5px solid #e5e7eb; border-radius:8px;
+  font-size:13px; font-family:inherit; outline:none;
+}
+.form-group input:focus, .form-group select:focus { border-color:#ec4899; }
+.btn {
+  padding:10px 20px; background:#ec4899; color:#fff; border:none; border-radius:10px;
+  font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; transition:.2s;
+}
+.btn:hover { background:#db2777; }
+.btn-sm { padding:6px 12px; font-size:12px; border-radius:8px; }
+.btn-danger { background:#ef4444; }
+.btn-danger:hover { background:#dc2626; }
+
+.log-list { margin-top:8px; }
+.log-item {
+  display:flex; justify-content:space-between; align-items:center;
+  background:#fff; border-radius:10px; padding:12px 16px; margin-bottom:6px;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.log-info { flex:1; }
+.log-food { font-size:14px; font-weight:600; }
+.log-detail { font-size:12px; color:#6b7280; }
+
+/* Dashboard */
+.dash-card {
+  background:#fff; border-radius:14px; padding:20px; margin-bottom:12px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.dash-title { font-size:14px; font-weight:600; margin-bottom:4px; }
+.dash-sub { font-size:12px; color:#6b7280; margin-bottom:12px; }
+.progress-item { margin-bottom:14px; }
+.progress-header {
+  display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;
+}
+.progress-name { font-weight:500; }
+.progress-val { color:#6b7280; }
+.progress-bar {
+  height:10px; background:#f1f5f9; border-radius:8px; overflow:hidden;
+}
+.progress-fill {
+  height:100%; border-radius:8px; transition:width .5s ease;
+}
+.fill-iron { background:linear-gradient(90deg,#ec4899,#f472b6); }
+.fill-calcium { background:linear-gradient(90deg,#8b5cf6,#a78bfa); }
+.fill-folic { background:linear-gradient(90deg,#10b981,#34d399); }
+.fill-protein { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+
+.empty-state {
+  text-align:center; padding:40px 20px; color:#9ca3af;
+}
+.empty-state .icon { font-size:48px; margin-bottom:8px; }
+.empty-state p { font-size:14px; }
+
+.food-search-dropdown {
+  position:relative;
+}
+.food-suggestions {
+  position:absolute; top:100%; left:0; right:0; background:#fff;
+  border:1px solid #e5e7eb; border-radius:8px; max-height:200px;
+  overflow-y:auto; z-index:20; box-shadow:0 4px 12px rgba(0,0,0,.1);
+  display:none;
+}
+.food-suggestions.show { display:block; }
+.food-suggestion {
+  padding:10px 14px; cursor:pointer; font-size:13px; border-bottom:1px solid #f3f4f6;
+}
+.food-suggestion:hover { background:#fdf2f8; }
+.food-suggestion:last-child { border-bottom:none; }
+
+@media(max-width:600px) {
+  .card-grid { grid-template-columns:1fr; }
+  .nutrients-row { grid-template-columns:repeat(2,1fr); }
+  .form-row { flex-direction:column; }
+  .tab { font-size:11px; padding:10px 4px; }
+  .tab-icon { font-size:16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>&#x1F331; Pregnancy Diet Planner</h1>
+  <p>Eat right for you and your baby</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('foods')">
+    <span class="tab-icon">&#x1F34E;</span>Food Checker
+  </div>
+  <div class="tab" onclick="switchTab('meals')">
+    <span class="tab-icon">&#x1F372;</span>Meal Plans
+  </div>
+  <div class="tab" onclick="switchTab('log')">
+    <span class="tab-icon">&#x1F4DD;</span>Daily Log
+  </div>
+  <div class="tab" onclick="switchTab('dashboard')">
+    <span class="tab-icon">&#x1F4CA;</span>Dashboard
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ── FOOD CHECKER ──────────────────────────────────── -->
+  <div id="foods" class="section active">
+    <div class="diet-pills">
+      <div class="pill pill-veg active" onclick="setDiet('veg',this)">&#x1F33F; Veg</div>
+      <div class="pill pill-nonveg" onclick="setDiet('non-veg',this)">&#x1F356; Non-Veg</div>
+      <div class="pill pill-egg" onclick="setDiet('egg',this)">&#x1F95A; Egg</div>
+      <div class="pill pill-vegan" onclick="setDiet('vegan',this)">&#x1F331; Vegan</div>
+    </div>
+    <div class="filters">
+      <input type="text" id="foodSearch" placeholder="Search food (paneer, spinach, egg...)" oninput="searchFoods()">
+      <select id="safetyFilter" onchange="searchFoods()">
+        <option value="">All Safety</option>
+        <option value="safe">&#x2705; Safe</option>
+        <option value="moderation">&#x26A0;&#xFE0F; Moderation</option>
+        <option value="unsafe">&#x274C; Unsafe</option>
+      </select>
+    </div>
+    <div id="foodResults" class="card-grid"></div>
+  </div>
+
+  <!-- ── MEAL PLANS ────────────────────────────────────── -->
+  <div id="meals" class="section">
+    <div class="diet-pills">
+      <div class="pill pill-veg active" onclick="setMealDiet('veg',this)">&#x1F33F; Veg</div>
+      <div class="pill pill-nonveg" onclick="setMealDiet('non-veg',this)">&#x1F356; Non-Veg</div>
+      <div class="pill pill-egg" onclick="setMealDiet('egg',this)">&#x1F95A; Egg</div>
+      <div class="pill pill-vegan" onclick="setMealDiet('vegan',this)">&#x1F331; Vegan</div>
+    </div>
+    <div class="filters">
+      <select id="trimesterFilter" onchange="loadMeals()">
+        <option value="">All Trimesters</option>
+        <option value="1">1st Trimester (Week 1-12)</option>
+        <option value="2">2nd Trimester (Week 13-26)</option>
+        <option value="3">3rd Trimester (Week 27-40)</option>
+      </select>
+    </div>
+    <div id="mealResults"></div>
+  </div>
+
+  <!-- ── DAILY LOG ─────────────────────────────────────── -->
+  <div id="log" class="section">
+    <div class="log-form">
+      <h3>&#x2795; Log what you ate</h3>
+      <div class="form-row">
+        <div class="form-group food-search-dropdown">
+          <label>Food</label>
+          <input type="text" id="logFoodSearch" placeholder="Type to search..." oninput="searchLogFoods()" autocomplete="off">
+          <div id="logFoodSuggestions" class="food-suggestions"></div>
+          <input type="hidden" id="logFoodId">
+        </div>
+        <div class="form-group" style="max-width:100px;">
+          <label>Quantity (g)</label>
+          <input type="number" id="logQuantity" placeholder="100" value="100">
+        </div>
+        <div class="form-group" style="max-width:130px;">
+          <label>Meal</label>
+          <select id="logMealType">
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="snack">Snack</option>
+            <option value="dinner">Dinner</option>
+          </select>
+        </div>
+        <button class="btn" onclick="addLog()">Add</button>
+      </div>
+    </div>
+    <h3 style="font-size:15px;font-weight:600;margin-bottom:10px;">Today's Log</h3>
+    <div id="logList" class="log-list"></div>
+  </div>
+
+  <!-- ── DASHBOARD ─────────────────────────────────────── -->
+  <div id="dashboard" class="section">
+    <div class="dash-card">
+      <div class="dash-title">Today's Nutrition Progress</div>
+      <div class="dash-sub">Recommended daily intake for pregnant women</div>
+      <div id="dashProgress"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API = window.location.origin;
+let currentDiet = 'veg';
+let mealDiet = 'veg';
+let selectedLogFoodId = null;
+
+function switchTab(tab) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  document.querySelectorAll('.tab')[['foods','meals','log','dashboard'].indexOf(tab)].classList.add('active');
+
+  if (tab === 'foods') searchFoods();
+  if (tab === 'meals') loadMeals();
+  if (tab === 'log') loadLog();
+  if (tab === 'dashboard') loadDashboard();
+}
+
+function setDiet(diet, el) {
+  currentDiet = diet;
+  document.querySelectorAll('#foods .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  searchFoods();
+}
+
+function setMealDiet(diet, el) {
+  mealDiet = diet;
+  document.querySelectorAll('#meals .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  loadMeals();
+}
+
+async function searchFoods() {
+  const search = document.getElementById('foodSearch').value;
+  const safety = document.getElementById('safetyFilter').value;
+  let url = `${API}/api/foods?diet=${currentDiet}`;
+  if (search) url += `&search=${encodeURIComponent(search)}`;
+  if (safety) url += `&safety=${safety}`;
+
+  const res = await fetch(url);
+  const foods = await res.json();
+  renderFoods(foods);
+}
+
+function renderFoods(foods) {
+  const grid = document.getElementById('foodResults');
+  if (!foods.length) {
+    grid.innerHTML = '<div class="empty-state"><div class="icon">&#x1F50D;</div><p>No foods found. Try a different search.</p></div>';
+    return;
+  }
+  grid.innerHTML = foods.map(f => `
+    <div class="food-card ${f.safety}">
+      <div style="display:flex;justify-content:space-between;align-items:start;">
+        <div class="food-name">${f.name}</div>
+        <span class="food-badge badge-${f.safety}">${f.safety === 'safe' ? '&#x2705; Safe' : f.safety === 'unsafe' ? '&#x274C; Avoid' : '&#x26A0;&#xFE0F; Limit'}</span>
+      </div>
+      <div class="food-meta">
+        <span class="food-badge badge-${f.diet_type === 'non-veg' ? 'nonveg' : f.diet_type}">${f.diet_type}</span>
+        &middot; ${f.category} &middot; Best in: ${f.trimester_best === 'all' ? 'All trimesters' : 'Trimester ' + f.trimester_best}
+      </div>
+      ${f.safety_reason ? `<div class="food-reason">&#x26A0;&#xFE0F; ${f.safety_reason}</div>` : ''}
+      <div class="nutrients-row">
+        <div class="nutrient-item"><div class="nutrient-val">${f.iron_mg}</div><div class="nutrient-label">Iron (mg)</div></div>
+        <div class="nutrient-item"><div class="nutrient-val">${f.calcium_mg}</div><div class="nutrient-label">Calcium (mg)</div></div>
+        <div class="nutrient-item"><div class="nutrient-val">${f.folic_acid_mcg}</div><div class="nutrient-label">Folic Acid (mcg)</div></div>
+        <div class="nutrient-item"><div class="nutrient-val">${f.protein_g}</div><div class="nutrient-label">Protein (g)</div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function loadMeals() {
+  const trimester = document.getElementById('trimesterFilter').value;
+  let url = `${API}/api/meals?diet=${mealDiet}`;
+  if (trimester) url += `&trimester=${trimester}`;
+
+  const res = await fetch(url);
+  const meals = await res.json();
+  renderMeals(meals);
+}
+
+function renderMeals(meals) {
+  const container = document.getElementById('mealResults');
+  if (!meals.length) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">&#x1F372;</div><p>No meal plans found for this selection.</p></div>';
+    return;
+  }
+
+  const groups = {};
+  const order = ['breakfast','lunch','snack','dinner'];
+  const icons = {breakfast:'&#x1F373;',lunch:'&#x1F35B;',snack:'&#x1F34F;',dinner:'&#x1F319;'};
+
+  meals.forEach(m => {
+    if (!groups[m.meal_type]) groups[m.meal_type] = [];
+    groups[m.meal_type].push(m);
+  });
+
+  let html = '';
+  order.forEach(type => {
+    if (!groups[type]) return;
+    html += `<div class="meal-group-title">${icons[type] || ''} ${type.charAt(0).toUpperCase() + type.slice(1)}</div>`;
+    groups[type].forEach(m => {
+      html += `
+        <div class="meal-card">
+          <div class="meal-name">${m.name}</div>
+          <div class="meal-desc">${m.description}</div>
+          <div class="meal-ingredients"><span>Ingredients:</span> ${m.ingredients}</div>
+        </div>`;
+    });
+  });
+
+  container.innerHTML = html;
+}
+
+async function searchLogFoods() {
+  const search = document.getElementById('logFoodSearch').value;
+  const sugBox = document.getElementById('logFoodSuggestions');
+
+  if (search.length < 2) { sugBox.classList.remove('show'); return; }
+
+  const res = await fetch(`${API}/api/foods?search=${encodeURIComponent(search)}`);
+  const foods = await res.json();
+
+  if (!foods.length) { sugBox.classList.remove('show'); return; }
+
+  sugBox.innerHTML = foods.slice(0, 8).map(f =>
+    `<div class="food-suggestion" onclick="selectLogFood(${f.id},'${f.name.replace(/'/g,"\\'")}')">
+      ${f.name} <span style="color:#9ca3af;font-size:11px;">(${f.diet_type})</span>
+    </div>`
+  ).join('');
+  sugBox.classList.add('show');
+}
+
+function selectLogFood(id, name) {
+  document.getElementById('logFoodSearch').value = name;
+  document.getElementById('logFoodId').value = id;
+  selectedLogFoodId = id;
+  document.getElementById('logFoodSuggestions').classList.remove('show');
+}
+
+async function addLog() {
+  const foodId = selectedLogFoodId || document.getElementById('logFoodId').value;
+  const quantity = document.getElementById('logQuantity').value;
+  const mealType = document.getElementById('logMealType').value;
+
+  if (!foodId) { alert('Please select a food item first'); return; }
+  if (!quantity || quantity <= 0) { alert('Please enter a valid quantity'); return; }
+
+  const today = new Date().toISOString().split('T')[0];
+
+  await fetch(`${API}/api/log`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ food_id: parseInt(foodId), quantity_g: parseFloat(quantity), meal_type: mealType, date: today })
+  });
+
+  document.getElementById('logFoodSearch').value = '';
+  document.getElementById('logFoodId').value = '';
+  selectedLogFoodId = null;
+  document.getElementById('logQuantity').value = '100';
+  loadLog();
+}
+
+async function loadLog() {
+  const today = new Date().toISOString().split('T')[0];
+  const res = await fetch(`${API}/api/log?log_date=${today}`);
+  const logs = await res.json();
+
+  const container = document.getElementById('logList');
+  if (!logs.length) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">&#x1F4DD;</div><p>No food logged today. Start by adding what you ate!</p></div>';
+    return;
+  }
+
+  container.innerHTML = logs.map(l => `
+    <div class="log-item">
+      <div class="log-info">
+        <div class="log-food">${l.food_name}</div>
+        <div class="log-detail">${l.quantity_g}g &middot; ${l.meal_type} &middot; Iron: ${l.nutrients.iron_mg}mg, Ca: ${l.nutrients.calcium_mg}mg, Folic: ${l.nutrients.folic_acid_mcg}mcg, Protein: ${l.nutrients.protein_g}g</div>
+      </div>
+      <button class="btn btn-sm btn-danger" onclick="deleteLog(${l.id})">&#x1F5D1;</button>
+    </div>
+  `).join('');
+}
+
+async function deleteLog(id) {
+  await fetch(`${API}/api/log/${id}`, { method: 'DELETE' });
+  loadLog();
+  loadDashboard();
+}
+
+async function loadDashboard() {
+  const today = new Date().toISOString().split('T')[0];
+  const res = await fetch(`${API}/api/dashboard?log_date=${today}`);
+  const data = await res.json();
+
+  const nutrients = [
+    { key:'iron_mg', label:'Iron', unit:'mg', fill:'fill-iron', icon:'&#x1FA78;' },
+    { key:'calcium_mg', label:'Calcium', unit:'mg', fill:'fill-calcium', icon:'&#x1F9B4;' },
+    { key:'folic_acid_mcg', label:'Folic Acid', unit:'mcg', fill:'fill-folic', icon:'&#x1F33F;' },
+    { key:'protein_g', label:'Protein', unit:'g', fill:'fill-protein', icon:'&#x1F4AA;' },
+  ];
+
+  const container = document.getElementById('dashProgress');
+  container.innerHTML = nutrients.map(n => `
+    <div class="progress-item">
+      <div class="progress-header">
+        <span class="progress-name">${n.icon} ${n.label}</span>
+        <span class="progress-val">${data.consumed[n.key]} / ${data.recommended[n.key]} ${n.unit} (${data.percentage[n.key]}%)</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill ${n.fill}" style="width:${data.percentage[n.key]}%"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.food-search-dropdown')) {
+    document.getElementById('logFoodSuggestions').classList.remove('show');
+  }
+});
+
+searchFoods();
+</script>
+</body>
+</html>
